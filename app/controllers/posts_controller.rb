@@ -31,6 +31,7 @@ class PostsController < ApplicationController
         redirect_to @post, notice: 'Post was successfully created.'
       else
         render :new
+      end
     end
   end
 
@@ -43,6 +44,7 @@ class PostsController < ApplicationController
       else
         render :edit 
       end
+    end
   end
 
   # DELETE /posts/1
