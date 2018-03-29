@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lion</title>
+    <title>Welcome to the Lawspital.com!</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+  <body style = "margin-top: 0px;">
+    <div>
+     <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+        <a class="navbar-brand navbar-title" href="/">I Need Help</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <%= link_to "About Us", "/about", class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Contact Us", "/contact", class: "nav-link text-light" %>
+            </li>
+            </ul>
+            <ul class = "navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class = "nav-item">  
+                  <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: "nav-link text-light" %>
+                 </li>
+              <% else %>
+                <li class = "nav-item">  
+                  <%= link_to 'Log in', new_user_session_path, class: "nav-link text-light" %>
+                  </li>
+                <li class = "nav-item"> 
+                  <%= link_to 'Sign up', new_user_registration_path, class: "nav-link text-light" %>
+                </li>
+            <% end %>
+            </ul>
+        </div>
+      </nav>
+    </div>
     <%= yield %>
+    <!-- FOOTER -->
+    <div class = "container">
+      <footer>
+        <p class="float-right"><a href="/">Back to top</a></p>
+        <p>© 2018 LikeLion <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </footer>
+    </div>
   </body>
 </html>

@@ -6,15 +6,17 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
   end
-
-  # GET /posts/1
-  # GET /posts/1.json
+  
+  # GET /posts/:category_id/1
+  # GET /posts/:category_id/1.json
   def show
+    @posts = Post.find(params[:post_id])
   end
-
+  
   # GET /posts/new
   def new
     @post = Post.new
+    authorize! :create, @post
   end
 
   # GET /posts/1/edit
@@ -25,7 +27,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
     respond_to do |format|
       if @post.save
         redirect_to @post, notice: 'Post was successfully created.'
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
       if @post.update(post_params)
          redirect_to @post, notice: 'Post was successfully updated.'
       else
-        render :edit 
+        render :edit
       end
     end
   end
@@ -56,6 +57,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def show_category
+    # define posts related to current category
+    @relatedPosts = Category.find(:category_id).posts
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
